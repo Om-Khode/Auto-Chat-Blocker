@@ -3,7 +3,7 @@
   "displayName": "Auto Chat Blocker",
   "description": "Prevent the AI chat panel from opening automatically on launch. Works across VS Code, Cursor, Windsurf and other VS Code-based IDEs.",
   "version": "0.1.0",
-  "publisher": "your-publisher-name",
+  "publisher": "kirigaya-shirogane",
   "license": "MIT",
   "icon": "icon.png",
   "engines": {
@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/auto-chat-blocker.git"
+    "url": "https://github.com/Om-Khode/Auto-Chat-Blocker.git"
   },
   "activationEvents": [
     "onStartupFinished"
