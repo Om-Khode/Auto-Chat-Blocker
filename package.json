@@ -1,0 +1,97 @@
+{
+  "name": "auto-chat-blocker",
+  "displayName": "Auto Chat Blocker",
+  "description": "Prevent the AI chat panel from opening automatically on launch. Works across VS Code, Cursor, Windsurf and other VS Code-based IDEs.",
+  "version": "0.1.0",
+  "publisher": "your-publisher-name",
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "chat",
+    "cursor",
+    "windsurf",
+    "copilot",
+    "ai",
+    "disable chat",
+    "auto open"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/auto-chat-blocker.git"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "autoChatBlocker.toggle",
+        "title": "Auto Chat Blocker: Toggle",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "autoChatBlocker.closeNow",
+        "title": "Auto Chat Blocker: Close Chat Now"
+      }
+    ],
+    "configuration": {
+      "title": "Auto Chat Blocker",
+      "properties": {
+        "autoChatBlocker.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically close the AI chat panel when the window opens."
+        },
+        "autoChatBlocker.retryDelaysMs": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "default": [0, 350, 800, 1200],
+          "description": "Delays (in milliseconds, relative to startup) at which to retry closing the chat panel. Retrying beats the race condition where the chat opens slightly after the extension activates. Keep this window short: the IDE auto-opens chat near-instantly, so a short burst catches it while finishing before you could plausibly open the chat yourself. Lengthen it only if the chat sometimes survives startup; shorten it if it closes a chat you opened right after launch."
+        },
+        "autoChatBlocker.logTabEvents": {
+          "type": "boolean",
+          "default": false,
+          "description": "DIAGNOSTIC: log the editor tab layout at startup and every tab open/close/change to the Auto Chat Blocker output channel. Used to discover how the chat/agent tab surfaces in each IDE. Leave off for normal use."
+        },
+        "autoChatBlocker.abortOnUserActivity": {
+          "type": "boolean",
+          "default": true,
+          "description": "Cancel any remaining startup close attempts as soon as you start working (typing in a file or opening a terminal). Protects a chat you opened yourself during the gap before the extension finished loading."
+        },
+        "autoChatBlocker.closeOnWindowFocus": {
+          "type": "boolean",
+          "default": false,
+          "description": "Also close the chat panel every time the window regains focus. WARNING: this will close the chat even if you opened it manually and then switched away and back. Leave off for startup-only blocking (recommended). Opening a new folder/workspace already re-triggers the startup close, so you rarely need this."
+        },
+        "autoChatBlocker.extraCloseCommands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Additional command IDs to try when closing the chat. Use this if your IDE/version exposes a different close command. The first one that exists is used."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^5.4.0"
+  }
+}
