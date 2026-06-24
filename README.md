@@ -1,4 +1,4 @@
-# Auto Chat Blocker
+# Auto Chat Panel Blocker
 
 Stop the AI chat panel from auto-opening every time you launch your editor.
 
@@ -84,7 +84,7 @@ npm run watch      # background TypeScript compile
 
 ```bash
 npm install -g @vscode/vsce
-vsce package                 # produces auto-chat-blocker-x.y.z.vsix
+vsce package                 # produces auto-chat-panel-blocker-x.y.z.vsix
 # install the .vsix in any IDE to test, or:
 vsce publish                 # needs a publisher + Azure DevOps PAT
 ```
